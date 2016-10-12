@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Sequenx-js -- Simple Lapse Example</title>
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" type="text/css" href="../styles.css">
+
+	<script src="../../dist/sequenx.js"></script>
+
+</head>
+
+<body>
+
+	<script>
+
+var sequence;
+
+function start() {
+
+  sequence = new Sequenx.Sequence('simple-sequence');
+
+	sequence.do(createRandomDiv, 'createRandomDiv1');
+	sequence.do(createRandomDiv, 'createRandomDiv2');
+	sequence.do(createRandomDiv, 'createRandomDiv3');
+	sequence.doWait(1000, 'waitForOneSecond');
+
+	sequence.start(()=>{
+			console.log('Sequence %s completed!', sequence.name);
+      sequence.dispose();
+      complete();
+	});
+}
+
+function createRandomDiv(done)
+{
+	console.log('createRandomDiv!');
+
+	var div = document.createElement('div');
+	div.classList.add("anim")
+	div.addEventListener("animationend", done, false);
+	document.body.appendChild(div);
+	var xy = getRandomPosition(div);
+	div.style.top = xy[0] + 'px';
+	div.style.left = xy[1] + 'px';
+	div.style.backgroundColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+}
+
+function getRandomPosition(element) {
+	var x = window.innerHeight- 50;
+	var y = window.innerWidth - 50;
+	var randomX = Math.floor(Math.random()*x);
+	var randomY = Math.floor(Math.random()*y);
+	return [randomX,randomY];
+}
+
+
+function complete()
+{
+  console.log('Sequence is completed, now do stuffs');
+  document.body.style.backgroundColor = '#00FF00';
+}
+
+start();
+
+</script>
+</body>
+
+</html>

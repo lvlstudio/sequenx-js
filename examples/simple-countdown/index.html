@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sequenx-js -- Countdown Example</title>
+  <meta charset="UTF-8">
+  <script src="../../dist/sequenx.js"></script>
+</head>
+
+<body>
+
+  <script>
+    var div = document.createElement('div');
+    div.style.margin = 'auto';
+    div.style.textAlign = 'center';
+    div.style.fontSize = '40vh';
+    document.body.appendChild(div);
+
+    function start() {
+      var sequence = new Sequenx.Sequence('Countdown');
+      var i = 0;
+      for (i = 10; i > 0; i--) {
+        (function(i) {
+          sequence.do(() => div.innerHTML = i)
+        })(i);
+        sequence.doWait(1000);
+      }
+      sequence.start(() => div.innerHTML = 'Hourray!');
+    }
+    start();
+  </script>
+</body>
+
+</html>

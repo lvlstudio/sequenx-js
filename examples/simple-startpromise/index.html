@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sequenx-js -- Promise Example</title>
+  <meta charset="UTF-8">
+  <script src="../../dist/sequenx.js"></script>
+</head>
+
+<body>
+
+  <script>
+    function start() {
+      var sequence = new Sequenx.Sequence('Sequence');
+      sequence.do(() => doingAction('Doing some actions and wait 2 seconds'));
+      sequence.doWait(2000);
+      sequence.do(() => doingAction('Calling a promise and wait for resolve (4 seconds)'));
+      sequence.doPromise(() => new Promise((resolve, reject) => setTimeout(resolve, 4000)));
+      sequence.startPromise().then(() => doingAction('Hourray!'));
+    }
+
+    function doingAction(text) {
+      var div = document.createElement('div');
+      document.body.appendChild(div);
+      div.innerHTML = text;
+    }
+    start();
+  </script>
+</body>
+
+</html>

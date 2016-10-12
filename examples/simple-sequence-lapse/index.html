@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Sequenx-js -- Simple Sequence Lapse Example</title>
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" type="text/css" href="../styles.css">
+
+	<script src="../../dist/sequenx.js"></script>
+
+</head>
+
+<body>
+
+	<script>
+		function start() {
+
+			var sequence = new Sequenx.Sequence('simple-sequence');
+			sequence.doLapse(lapse => extendLapse(lapse, 'Lapse One', 5), 'extendingLapse');
+			sequence.doLapse(lapse => extendLapse(lapse, 'Lapse Two', 2), 'extendingLapse');
+			sequence.doLapse(lapse => extendLapse(lapse, 'Lapse Three', 3), 'extendingLapse');
+			sequence.doLapse(lapse => extendLapse(lapse, 'Lapse Four', 1), 'extendingLapse');
+			sequence.do(createRandomDiv, 'createRandomDiv1');
+			sequence.do(createRandomDiv, 'createRandomDiv2');
+			sequence.do(createRandomDiv, 'createRandomDiv3');
+			sequence.doWait(1000, 'waitForOneSecond');
+
+			sequence.start(() => {
+				console.log('Sequence %s completed!', sequence.name);
+				sequence.dispose();
+				complete();
+			});
+		}
+
+		function extendLapse(lapse, name, waitTime) {
+			var disposable = lapse.sustain();
+			var div = document.createElement('div');
+			div.innerHTML = `${name} sustains for ${waitTime} seconds...`;
+			document.body.appendChild(div);
+			setTimeout(() => {
+				disposable.dispose();
+				div.innerHTML = `${name} ends after ${waitTime} seconds...`;
+			}, waitTime * 1000);
+		}
+
+		function createRandomDiv(done) {
+			console.log('createRandomDiv!');
+
+			var div = document.createElement('div');
+			div.classList.add("anim")
+			div.addEventListener("animationend", done, false);
+			document.body.appendChild(div);
+			var xy = getRandomPosition(div);
+			div.style.top = xy[0] + 'px';
+			div.style.left = xy[1] + 'px';
+			div.style.backgroundColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+		}
+
+		function getRandomPosition(element) {
+			var x = window.innerHeight - 50;
+			var y = window.innerWidth - 50;
+			var randomX = Math.floor(Math.random() * x);
+			var randomY = Math.floor(Math.random() * y);
+			return [randomX, randomY];
+		}
+
+
+		function complete() {
+			var div = document.createElement('div');
+			div.innerHTML = 'Sequence is completed, now do stuffs';
+			document.body.appendChild(div);
+			document.body.style.backgroundColor = '#00FF00';
+		}
+
+		start();
+	</script>
+</body>
+
+</html>

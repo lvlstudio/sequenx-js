@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sequenx-js -- Simple lapse sustain Example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <script src="../../dist/sequenx.js"></script>
+</head>
+
+<body>
+
+    <script>
+        var lapse = new Sequenx.Lapse('');
+        var clickDisposable = null;
+        var div = null;
+
+        var keepAlive = function(posX, posY) {
+            //Sustain lapse
+            var disposer = lapse.sustain();
+
+            var animationEnd = function() {
+                //Dispose sustainer
+                disposer.dispose();
+                document.body.removeChild(newDiv);
+            }
+
+            var newDiv = document.createElement('div');
+            newDiv.classList.add("animSurvive")
+            document.body.appendChild(newDiv);
+            newDiv.style.top = posY;
+            newDiv.style.left = posX;
+            newDiv.style.position = 'fixed';
+            newDiv.style.backgroundColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+            newDiv.addEventListener("animationend", animationEnd, false);
+        }
+
+        var click = function(e) {
+            keepAlive(e.clientX - 50 + 'px', e.clientY - 50 + 'px');
+            clickDisposable.dispose(); //First click done
+        }
+
+        var init = function() {
+            div = document.createElement('div');
+            div.style.textAlign = 'center';
+            div.style.fontSize = '5vh';
+            document.body.appendChild(div);
+            div.innerHTML = 'When ready, keep clicking to stay alive!';
+        }
+
+        var completed = function() {
+            document.removeEventListener('click', click);
+            div.innerHTML = "Finished!";
+            document.body.style.backgroundColor = '#FF0000';
+        }
+
+        document.addEventListener('click', click);
+
+        init();
+        clickDisposable = lapse.sustain(''); //Wait for first click
+        lapse.start(completed);
+    </script>
+</body>
+
+</html>

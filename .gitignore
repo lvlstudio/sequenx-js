@@ -1,0 +1,9 @@
+/ignored/
+node_modules
+**/node_modules
+src/**/*.js
+coverage/*
+js/*
+.tscache/*
+*.tmp.txt
+yarn.lock

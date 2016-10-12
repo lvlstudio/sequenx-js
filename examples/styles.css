@@ -1,0 +1,38 @@
+@keyframes example {
+    from {
+        transform: rotate(180deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+@keyframes survive {
+    from {
+        transform: scale(1) rotate(180deg);
+    }
+    to {
+        transform: scale(0) rotate(0);
+    }
+}
+
+
+/* The element to apply the animation to */
+
+.anim {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    animation-name: example;
+    animation-duration: 2s;
+    transform: rotate(180deg);
+}
+
+.animSurvive {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    animation-name: survive;
+    animation-duration: 0.8s;
+    transform: rotate(180deg);
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sequenx-js -- Simple Lapse Example</title>
+	<meta charset="UTF-8">
+
+	<script src="../../dist/sequenx.js"></script>
+	<link rel="stylesheet" type="text/css" href="../styles.css">
+<script>
+
+function start() {
+
+  var sequence = new Sequenx.Sequence('simple-sequence');
+
+	sequence.doWait(1000, 'waitForOneSecond3');
+	sequence.do(createRandomDiv, 'createRandomDiv0');
+
+	sequence.doParallel(function (p){
+		p.do(createRandomDiv, 'parallel-createRandomDiv1');
+		p.do(createRandomDiv, 'parallel-createRandomDiv2');
+		p.do(createRandomDiv, 'parallel-createRandomDiv3');
+		p.do(createRandomDiv, 'parallel-createRandomDiv4');
+		p.do(createRandomDiv, 'parallel-createRandomDiv5');
+		p.doWait(1500);
+	}, "simple-parallel");
+
+	sequence.doWait(1000, 'waitForOneSecond3');
+	sequence.do(createRandomDiv, 'createRandomDiv3');
+	sequence.do(createRandomDiv, 'createRandomDiv4');
+
+	sequence.start( function () {
+      console.log('Sequence %s completed!', sequence.name);
+      sequence.dispose();
+      complete();
+    });
+
+}
+
+function waitForOneSecond(lapse)
+{
+	//console.log('waitForOneSecond!', lapse.name);
+	var disposable1 = lapse.sustain('timer-1000');
+  setTimeout(function(){ disposable1.dispose() }, 1000);
+}
+
+function createRandomDiv(done)
+{
+	console.log('createRandomDiv!');
+
+	var div = document.createElement('div');
+	div.classList.add("anim")
+	div.addEventListener("animationend", done, false);
+	document.body.appendChild(div);
+	var xy = getRandomPosition(div);
+	div.style.top = xy[0] + 'px';
+	div.style.left = xy[1] + 'px';
+	div.style.backgroundColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+}
+
+function getRandomPosition(element) {
+	var x = window.innerHeight- 50;
+	var y = window.innerWidth - 50;
+	var randomX = Math.floor(Math.random()*x);
+	var randomY = Math.floor(Math.random()*y);
+	return [randomX,randomY];
+}
+
+function complete()
+{
+  console.log('Lapse is completed, now do stuffs');
+  document.body.style.backgroundColor = '#000000';
+}
+
+start();
+
+</script>
+</head>
+<body>
+
+</body>
+
+</html>
