@@ -17,8 +17,8 @@ var sequence = new Sequenx.Sequence('Sequence')
 
 ```
 
-More example there [examples](../sequenx-js/tree/master/examples)
+More example there [examples](https://github.com/lvlstudio/sequenx-js/tree/master/examples)
  
 API
 ---
-See: [wiki](../sequenx-js/wiki)
+See: [wiki](https://github.com/lvlstudio/sequenx-js/wiki)
