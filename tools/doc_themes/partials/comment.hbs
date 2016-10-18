@@ -3,7 +3,7 @@
     {{#if shortText}}{{#compact}}{{{shortText}}}{{/compact}}{{/if~}}
     {{#if text}}{{#compact}}{{{text}}}{{/compact}}{{/if~}}
     {{#if tags ~}}
-      {{#each tags}} {{{tagName}}} {{{text}}}{{/each~}}
+      ${br}{{#each tags}}#### {{{tagName}}}${br} ```javascript {{{text}}}```${br}{{/each~}}
     {{/if~}}
   {{/if~}}
 {{/with}}

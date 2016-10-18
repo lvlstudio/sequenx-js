@@ -33,9 +33,13 @@ gulp.task("doc", ["typedoc"], function() {
             if (path.basename.charAt(0) == "_")
                 path.basename = path.basename.substr(1);
         }))
-        .pipe($.replace(/example[\n]([a-zA-Z0-9\n\s/\.()=>{},]*)\n\${br}/gm, "${br}${br}#### Example${br}```javascript${br}$1${br}```${br}${br}"))
-        .pipe($.replace(/\n/g, ""))
+        //.pipe($.replace(/example[\n]([a-zA-Z0-9\n\s/\.()=>{},]*)\n\${br}/gm, "<pre>${br}${br}#### Example${br}```javascript${br}$1${br}```${br}${br}</pre>"))
+        //.pipe($.replace(/\n/g, ""))
+        .pipe($.replace(/\${br}\n/g, "\n"))
         .pipe($.replace(/\${br}/g, "\n"))
+        .pipe($.replace(/\(.*\//g,"("))
+        .pipe($.replace(/\.html\)/g,")"))
+        .pipe($.replace(/\* Defined.*/g,""))
         .pipe(gulp.dest('doc/md'));
     return merge2(r);
 });

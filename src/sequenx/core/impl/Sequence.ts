@@ -10,7 +10,7 @@ module Sequenx
          * @returns self for chaining
          * 
          * @example
-         * sequence.do(() => action()) //execute and complete (synchronous )
+         * sequence.do(() => action()) //execute and complete (synchronous)
          * sequence.do((done) => setTimeout(done, 1000)) //execute and complete after 1sec (asynchronous)
          */
         do(action: (done?: () => void) => void, message?: string): Sequence;
@@ -92,7 +92,7 @@ module Sequenx
 
         /**
          * Start the sequence
-         * @param onComplete callback called when sequence is complete
+         * @param onComplete callback called when sequence is completed
          */
         public start(onComplete?: () => void)
         {
@@ -108,7 +108,7 @@ module Sequenx
         }
 
         /**
-         * Add a complete callback (useful when used with autoStart)
+         * Complete callback (useful when used with autoStart)
          * 
          * @param cb callback function
          * @returns self for chaining
@@ -197,7 +197,7 @@ module Sequenx
          * @returns self for chaining
          * 
          * @example
-         * sequence.do(() => action()) //execute and complete (synchronous )
+         * sequence.do(() => action()) //execute and complete (synchronous)
          * sequence.do((done) => setTimeout(done, 1000)) //execute and complete after 1sec (asynchronous)
          */
         public do(action: (done?: () => void) => void, message?: string): Sequence
@@ -248,6 +248,8 @@ module Sequenx
 
         /**
          * Add a mark to sequence to use with {@link Sequence#skipToMarker}
+         * 
+         * @param marker any value
          * @returns self for chaining
          */
         public doMark(marker: any): Sequence
@@ -305,24 +307,37 @@ module Sequenx
 
         /**
          * Skip task and go to the marker see {@link Sequence#doMark}
+         * @param marker marker specify in {@link Sequence#doMark}
+         * @param cancelCurrent not implemented yet
          */
         public skipToMarker(marker: any, cancelCurrent: boolean = false): void
         {
             this.skipTo(x => x instanceof MarkTask && x.marker === marker);
         }
 
+
+        /**
+         * Skip all task and call end
+         */
         public skipToEnd(): void
         {
             this.skip(x => true);
         }
 
+        /**
+         * Skip items until reaching a non-matching one
+         * @param predicate skip util return false 
+         */
         public skip(predicate: (item: ISequenceTask) => boolean): void
         {
-            // Skip items until reaching a non-matching one
             while (this._tasks.length > 0 && predicate(this._tasks[ 0 ]))
                 this._tasks.splice(0, 1);
         }
 
+        /**
+         * Skip items until reaching a matching one
+         * @param predicate skip util return true 
+         */
         public skipTo(predicate: (item: ISequenceTask) => boolean): void
         {
             let index = -1;

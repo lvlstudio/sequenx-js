@@ -2,6 +2,8 @@ sequenx-js
 ==========
 Typescript version of [Sequenx](https://github.com/Silphid/Sequenx)
 
+Lean sequencing library for orchestrating temporal events such as animations, transitions, sound effects, etc.
+
 Example
 -------
 Basic example
@@ -15,6 +17,8 @@ var sequence = new Sequenx.Sequence('Sequence')
 
 ```
 
+more example there [tree/master/examples](tree/master/examples)
+
 API
 ---
-Coming soon
+see: [wiki](wiki)

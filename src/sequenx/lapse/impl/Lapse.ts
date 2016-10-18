@@ -34,6 +34,10 @@ module Sequenx
             return this._log.createChild(name);
         }
 
+        /**
+         * Add a reference counter to lapse. Lapse is completed only if all sustain is disposed
+         * @param name optional log message
+         */
         public sustain(name?: string): IDisposable
         {
             if (this._isCompleted || this._isDisposed)
@@ -45,11 +49,21 @@ module Sequenx
             return this._refCountDisposable.getDisposable();
         }
 
+        /**
+         * Complete callback (useful when used with autoStart)
+         * 
+         * @param cb callback function
+         * @returns self for chaining
+         */
         public onCompleted(cb: () => void)
         {
             this._completed = cb;
         }
 
+        /**
+         * Start to watch for all sustain is disposed
+         * @param onComplete callback called when sequence is completed
+         */
         public start(cb?: () => void): void
         {
             if (this._isStarted || this._isCompleted || this._isDisposed)
@@ -60,15 +74,16 @@ module Sequenx
             this._refCountDisposable.dispose();
         }
 
+        /**
+         * Releases all resources of this object.
+         */
         public dispose(): void
         {
             if (this._isDisposed)
                 return;
 
             if (!this._isCompleted)
-            {
                 this._log.info("Cancelling");
-            }
 
             this.lapseCompleted();
         }
@@ -86,6 +101,11 @@ module Sequenx
 
         //ILapseExtensions
 
+        /**
+         * Sustain lapse until sequence complete see {@link Sequence}
+         * @param action 
+         * @param message optional log message
+         */
         public sequence(action: (seq: Sequence) => void, message?: string): Sequence
         {
             const sustain = this.sustain();
@@ -98,6 +118,11 @@ module Sequenx
             return seq;
         }
 
+        /**
+         * Sustain lapse until child is disposed
+         * @param action 
+         * @param message optional log message
+         */
         public child(action: (lapse: ILapse) => void, message?: string): void
         {
             const sustain = this.sustain();
