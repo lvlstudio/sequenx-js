@@ -1,0 +1,9 @@
+{{#if groups}}${br}
+  ## Index
+  {{~#each groups}}${br}${br}
+    ### {{{title}}}
+    {{~#each children ~}}
+      ${br}* [{{#if name}}{{{name}}}{{else}}*{{{kindString}}}*{{/if}}]({{{relativeURL url}}})
+    {{~/each~}}
+  {{/each~}}
+{{/if}}

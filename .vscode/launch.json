@@ -13,6 +13,41 @@
             "stopOnEntry": false
         },
         {
+            "name": "typedoc",
+            "type": "node",
+            "request": "launch",
+            "sourceMaps": true,
+            "cwd":"${workspaceRoot}/node_modules/typedoc",
+            "program": "${workspaceRoot}/node_modules/typedoc/bin/typedoc",
+            "args": [
+                "--ignoreCompilerErrors",
+                "--target",
+                "ES5",
+                "--theme",
+                "../../node_modules/typedoc-markdown-theme/bin",
+                "--out",
+                "../../doc4",
+                "../../src"
+            ],
+            "stopOnEntry": false
+        },
+        {
+            "name": "typedoc2",
+            "type": "node",
+            "request": "launch",
+            "sourceMaps": true,
+            "program": "${workspaceRoot}/node_modules/typedoc-markdown-theme/node_modules/typedoc/bin/typedoc",
+            "args": [
+                "--ignoreCompilerErrors",
+                "--theme",
+                "node_modules/typedoc-markdown-theme/bin",
+                "--out",
+                "doc5",
+                "src"
+            ],
+            "stopOnEntry": false
+        },
+        {
             "name": "test",
             "type": "node",
             "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",

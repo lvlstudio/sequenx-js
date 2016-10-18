@@ -1,4 +1,4 @@
-/// <reference path="../sequencing/core/impl/Sequence.ts" />
+/// <reference path="../sequenx/core/impl/Sequence.ts" />
 
 declare const module;
 declare const require;

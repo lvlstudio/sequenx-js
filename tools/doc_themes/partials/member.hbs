@@ -1,0 +1,19 @@
+{{#if signatures ~}}
+  ${br}### {{#each flags}}{{{this}}} {{/each}}{{> member.signatures ~}}
+{{else~}}
+  {{#if hasGetterOrSetter ~}}
+    {{#if name ~}}
+      ${br}### {{#each flags}}{{{this}}} {{/each}}{{{name}}}
+    {{~/if}}
+    {{~> member.getterSetter ~}}
+  {{else~}}
+    ${br}### {{#each flags}}{{{this}}} {{/each}}{{> member.declaration ~}}
+  {{/if~}}
+{{/if}}
+{{#each groups ~}}
+  {{#each children ~}}
+    {{#unless hasOwnDocument}}${br}
+      {{~> member ~}}
+    {{/unless~}}
+  {{/each~}}
+{{/each}}

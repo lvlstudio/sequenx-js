@@ -1,0 +1,23 @@
+{{> comment}}
+{{#unless hideSources ~}}
+  {{> member.sources ~}}
+{{/unless}}
+{{#if typeParameters ~}}
+  ${br}${br}#### Type parameters${br}
+  {{> typeParameters ~}}
+{{/if}}
+{{#if parameters ~}}
+  ${br}${br}#### Parameters${br}
+  ${br}| Name | Type | Description |${br}
+  | ---- | ---- | ---- |${br}
+  {{#each parameters ~}}
+    | {{#if flags.isRest}}...{{/if}}{{{name}}}{{#if flags.isOptional}}?{{/if}}{{#if defaultValue}} = {{{defaultValue}}}{{/if}} |
+    {{~#with type}} {{>type}}{{/with~}} | {{> comment}} |${br}
+  {{/each~}}
+{{/if}}
+{{#if type ~}}
+  ${br}#### Returns: {{#with type}}{{>type}}{{/with~}}
+  {{#if comment.returns ~}}
+    ${br}{{{comment.returns}}}
+  {{~/if~}}
+{{/if}}

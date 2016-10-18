@@ -1,0 +1,19 @@
+{{#if implementationOf ~}}
+  ${br}* Implementation of {{#with implementationOf}}{{> typeAndParent}}{{/with~}}
+{{/if~}}
+{{#if inheritedFrom ~}}
+  ${br}* Inherited from {{#with inheritedFrom}}{{> typeAndParent}}{{/with~}}
+{{/if~}}
+{{#if overwrites ~}}
+  ${br}* Overwrites {{#with overwrites}}{{> typeAndParent}}{{/with~}}
+{{/if~}}
+{{#if sources ~}}
+  ${br}
+  {{#each sources ~}}
+    {{#if url ~}}
+      * Defined in [{{{fileName}}}:{{{line}}}]({{{url}}})${br}
+    {{else~}}
+      * Defined in {{{fileName}}}:{{{line}}}${br}
+    {{/if~}}
+  {{/each}}
+{{/if}}

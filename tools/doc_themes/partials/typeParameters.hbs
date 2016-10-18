@@ -1,0 +1,3 @@
+{{#each typeParameters ~}}
+  ${br}* #### {{{name}}}{{#if type}} {{#with type}}{{> type}}{{/with}}{{/if}}{{> comment ~}}
+{{/each}}

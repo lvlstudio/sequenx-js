@@ -6,8 +6,7 @@
         "removeComments": true,
         "noLib": false,
         "outFile": "js/sequenx.js",
-        "sourceMap": true,
-        "strictNullChecks":false
+        "sourceMap": true
     },
     "exclude": [
         "node_modules",

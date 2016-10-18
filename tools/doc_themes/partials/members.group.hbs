@@ -1,0 +1,6 @@
+## {{{title}}}
+{{~#each children ~}}
+  {{#unless hasOwnDocument ~}}
+    ${br}{{> member ~}}
+  {{/unless}}
+{{/each}}

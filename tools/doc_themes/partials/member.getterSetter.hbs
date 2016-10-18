@@ -1,0 +1,16 @@
+{{#if getSignature}}${br}
+  {{#with getSignature ~}}
+    * get {{{../../name}}}{{> member.signature.title hideName=true ~}}
+  {{/with~}}
+{{/if}}
+{{#if setSignature}}${br}
+  {{#with setSignature ~}}
+    * set {{{../../name}}}{{> member.signature.title hideName=true ~}}
+  {{/with~}}
+{{/if}}
+{{#if getSignature}}${br}
+  {{#with getSignature}}{{> member.signature.body}}{{/with~}}
+{{/if}}
+{{#if setSignature}}${br}
+  {{#with setSignature}}{{> member.signature.body}}{{/with~}}
+{{/if}}

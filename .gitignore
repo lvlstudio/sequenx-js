@@ -7,3 +7,5 @@ js/*
 .tscache/*
 *.tmp.txt
 yarn.lock
+doc/
+doc2/

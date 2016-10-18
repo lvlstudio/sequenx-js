@@ -303,6 +303,9 @@ module Sequenx
         // }
         // { skip
 
+        /**
+         * Skip task and go to the marker see {@link Sequence#doMark}
+         */
         public skipToMarker(marker: any, cancelCurrent: boolean = false): void
         {
             this.skipTo(x => x instanceof MarkTask && x.marker === marker);
